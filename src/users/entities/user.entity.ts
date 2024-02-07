@@ -2,10 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { IsEmail } from 'class-validator';
+import { Lesson } from '../../lesson/entities/lesson.entity';
 
 @Entity()
 export class User {
@@ -38,4 +41,16 @@ export class User {
 
   @UpdateDateColumn({ name: 'updated_at', nullable: true })
   updated_at!: Date;
+
+  @ManyToMany(() => Lesson)
+  @JoinTable()
+  completed: Lesson[];
+
+  @ManyToMany(() => Lesson)
+  @JoinTable()
+  favorites: Lesson[];
+
+  @ManyToMany(() => Lesson)
+  @JoinTable()
+  watch_list: Lesson[];
 }

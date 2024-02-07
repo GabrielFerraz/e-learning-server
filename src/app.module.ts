@@ -10,6 +10,8 @@ import { User } from './users/entities/user.entity';
 import { DataSource } from 'typeorm';
 import { CourseModule } from './course/course.module';
 import { Course } from './course/entities/course.entity';
+import { LessonModule } from './lesson/lesson.module';
+import { Lesson } from './lesson/entities/lesson.entity';
 
 @Module({
   imports: [
@@ -21,12 +23,13 @@ import { Course } from './course/entities/course.entity';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE,
-      entities: [User, Course],
+      entities: [User, Course, Lesson],
       synchronize: +process.env.SYNC === 1,
     }),
     UsersModule,
     AuthModule,
     CourseModule,
+    LessonModule,
   ],
   controllers: [AppController],
   providers: [AppService],

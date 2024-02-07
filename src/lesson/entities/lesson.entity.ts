@@ -2,13 +2,13 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Lesson } from '../../lesson/entities/lesson.entity';
+import { Course } from '../../course/entities/course.entity';
 @Entity()
-export class Course {
+export class Lesson {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,8 +18,14 @@ export class Course {
   @Column('text')
   description: string;
 
+  @Column('int')
+  lesson_number: number;
+
+  @Column('int')
+  duration: number;
+
   @Column('text')
-  thumb_img: string;
+  video_url: string;
 
   @CreateDateColumn({ name: 'created_at' })
   created_at!: Date;
@@ -27,6 +33,6 @@ export class Course {
   @UpdateDateColumn({ name: 'updated_at', nullable: true })
   updated_at!: Date;
 
-  @OneToMany(() => Lesson, (lesson) => lesson.course)
-  lessons: Lesson[];
+  @ManyToOne(() => Course, (course) => course.lessons)
+  course: Course;
 }
