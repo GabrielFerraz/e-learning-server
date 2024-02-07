@@ -3,10 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { Course } from '../../course/entities/course.entity';
+import { Comment } from '../../comments/entities/comment.entity';
 @Entity()
 export class Lesson {
   @PrimaryGeneratedColumn()
@@ -35,4 +37,7 @@ export class Lesson {
 
   @ManyToOne(() => Course, (course) => course.lessons)
   course: Course;
+
+  @OneToMany(() => Comment, (comment) => comment.lesson)
+  comments: Comment[];
 }

@@ -9,6 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { IsEmail } from 'class-validator';
+import { Comment } from '../../comments/entities/comment.entity';
 import { UserToCourse } from '../../user-to-course/interfaces/user-to-course.entity';
 import { Lesson } from '../../lesson/entities/lesson.entity';
 
@@ -43,6 +44,9 @@ export class User {
 
   @UpdateDateColumn({ name: 'updated_at', nullable: true })
   updated_at!: Date;
+
+  @OneToMany(() => Comment, (comment) => comment.user)
+  comments: Comment[];
 
   @OneToMany(() => UserToCourse, (userToCourse) => userToCourse.user)
   user_to_courses: UserToCourse[];
